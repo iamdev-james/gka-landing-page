@@ -6,6 +6,7 @@ import MissionBanner from "@/components/MissionBanner";
 import CoreValues from "@/components/CoreValues";
 import GallerySection from "@/components/GallerySection";
 import NewsSection from "@/components/NewsSection";
+import PartnersSection from "@/components/PartnersSection";
 import CalendarSection from "@/components/CalendarSection";
 import AdmissionsCTA from "@/components/AdmissionsCTA";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
         <CoreValues />
         <GallerySection />
         <NewsSection />
+        <PartnersSection />
         <CalendarSection />
         <AdmissionsCTA />
       </main>
