@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #F9F8F6;
+  --color-foreground: #111111;
+  --color-accent: #1A3C2B;
+  --color-accent-light: #F0F5F2;
+  --color-muted: #6B6B6B;
+  --color-border: #E5E5E5;
+  --color-card: #FFFFFF;
+  --color-gallery-bg: #F2F0EC;
+  --color-footer: #0D0D0D;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* ───────────────────────────────────────────
+   Liquid glass navbar — opaque frosted glass
+   ─────────────────────────────────────────── */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(40px) saturate(2);
+  -webkit-backdrop-filter: blur(40px) saturate(2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Floating glass navbar over dark hero — semi-transparent dark glass */
+.navbar-glass-hero {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* White ripple for hero glass navbar links */
+.navbar-glass-hero .ripple-host .ripple-circle {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ───────────────────────────────────────────
+   iOS-style ripple effect
+   React-managed — ripple spans are rendered
+   in the React tree, not via DOM manipulation.
+   ─────────────────────────────────────────── */
+.ripple-host {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ripple-host .ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(26, 60, 43, 0.15);
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 0;
+  animation: ios-ripple 0.55s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+/* White ripple for dark-bg buttons (Apply Now on accent) */
+.ripple-host.bg-accent .ripple-circle {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes ios-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Subtle scale-down on press */
+.ripple-host:active {
+  transform: scale(0.97);
+  transition: transform 0.08s ease;
+}
+
+/* ───────────────────────────────────────────
+   Gallery marquee
+   ─────────────────────────────────────────── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track-reverse {
+  display: flex;
+  gap: 1rem;
+  animation: marquee 40s linear infinite reverse;
+  will-change: transform;
+}
+
+.marquee-container:hover .marquee-track,
+.marquee-container:hover .marquee-track-reverse {
+  animation-play-state: paused;
 }
