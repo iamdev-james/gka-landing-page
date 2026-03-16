@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import StorySection from "@/components/StorySection";
 import AcademicsGrid from "@/components/AcademicsGrid";
 import MissionBanner from "@/components/MissionBanner";
+import CoreValues from "@/components/CoreValues";
 import GallerySection from "@/components/GallerySection";
 import NewsSection from "@/components/NewsSection";
 import CalendarSection from "@/components/CalendarSection";
@@ -18,6 +19,7 @@ export default function Home() {
         <StorySection />
         <AcademicsGrid />
         <MissionBanner />
+        <CoreValues />
         <GallerySection />
         <NewsSection />
         <CalendarSection />

@@ -102,10 +102,10 @@ export default function AcademicsGrid() {
             <motion.div
               key={program.label}
               variants={cardVariant}
-              className="group bg-card border border-border rounded-2xl p-4 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300"
+              className="group bg-card border border-border rounded-[20px] p-2 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300"
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl mb-5">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl mb-2">
                 <Image
                   src={program.image}
                   alt={program.alt}
@@ -116,7 +116,7 @@ export default function AcademicsGrid() {
               </div>
 
               {/* Text */}
-              <div className="px-1 pb-2">
+              <div className="pb-4 p-2">
                 <h3 className="text-lg font-bold tracking-tight mb-2">
                   {program.label}
                 </h3>
