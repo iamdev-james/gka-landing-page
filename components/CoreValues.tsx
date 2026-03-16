@@ -17,6 +17,8 @@ interface Value {
   description: string;
   stat: string;
   statLabel: string;
+  span: string;
+  featured?: boolean;
 }
 
 const values: Value[] = [
@@ -24,49 +26,56 @@ const values: Value[] = [
     icon: BookOpen,
     title: "Academic Excellence",
     description:
-      "Academic success is a non-negotiable standard at GKA. Our students consistently deliver outstanding results in WAEC and NECO examinations, gaining entry into top universities across Nigeria and beyond.",
+      "Our students consistently deliver outstanding results in WAEC and NECO examinations, gaining entry into top universities across Nigeria and beyond.",
     stat: "94%",
     statLabel: "WAEC/NECO pass rate",
+    span: "md:col-span-7",
+    featured: true,
   },
   {
     icon: Heart,
     title: "Islamic Values",
     description:
-      "Character formation rooted in Islamic principles is at the heart of everything we do. Quranic memorisation, daily worship, and moral education shape students into spiritually grounded individuals.",
+      "Quranic memorisation, daily worship, and moral education shape students into spiritually grounded individuals.",
     stat: "5+",
     statLabel: "Juz memorised on average",
+    span: "md:col-span-5",
   },
   {
     icon: Users,
     title: "Leadership & Character",
     description:
-      "Developing tomorrow's leaders through practical experience. Student councils, community service, inter-house competitions, and public speaking build confidence and real-world skills.",
+      "Student councils, community service, and public speaking build confidence and real-world skills.",
     stat: "12+",
     statLabel: "Leadership programmes",
+    span: "md:col-span-5",
   },
   {
     icon: GraduationCap,
     title: "Holistic Curriculum",
     description:
-      "Our pedagogy is driven by a vibrant, student-centred curriculum that nurtures critical thinking, creativity, and a lifelong love for learning across sciences, arts, and vocational studies.",
+      "A vibrant, student-centred curriculum that nurtures critical thinking, creativity, and a lifelong love for learning across sciences, arts, and vocational studies.",
     stat: "100%",
     statLabel: "University placement rate",
+    span: "md:col-span-7",
   },
   {
     icon: Monitor,
     title: "Technology & Innovation",
     description:
-      "Technology is woven into the fabric of our teaching. From fully equipped computer labs to digital learning tools, we cultivate digitally fluent students prepared for the modern world.",
+      "From fully equipped computer labs to digital learning tools, we cultivate digitally fluent students prepared for the modern world.",
     stat: "3",
     statLabel: "Dedicated ICT labs",
+    span: "md:col-span-7",
   },
   {
     icon: Star,
     title: "Extracurricular Growth",
     description:
-      "Beyond the classroom, students explore their passions through sports, debate clubs, science fairs, Arabic competitions, and excursions that broaden horizons and build well-rounded individuals.",
+      "Sports, debate clubs, science fairs, Arabic competitions, and excursions that broaden horizons.",
     stat: "20+",
     statLabel: "Clubs & activities",
+    span: "md:col-span-5",
   },
 ];
 
@@ -120,43 +129,83 @@ export default function CoreValues() {
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
+        {/* Bento Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5"
         >
           {values.map((value) => (
             <motion.div
               key={value.title}
               variants={cardVariant}
-              className="bg-card border border-border rounded-2xl p-7 sm:p-8 flex flex-col justify-between"
+              className={`${value.span} ${
+                value.featured
+                  ? "bg-accent text-white"
+                  : "bg-gallery-bg"
+              } rounded-2xl p-7 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[260px] group relative overflow-hidden`}
             >
-              <div>
-                {/* Icon + Title */}
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center flex-shrink-0">
-                    <value.icon size={20} className="text-white" />
-                  </div>
-                  <h3 className="text-sm sm:text-base font-bold tracking-wide uppercase">
-                    {value.title}
-                  </h3>
+              {/* Large watermark stat */}
+              <span
+                className={`absolute -right-2 -bottom-4 text-[120px] sm:text-[140px] font-bold leading-none tracking-tighter select-none ${
+                  value.featured
+                    ? "text-white/[0.08]"
+                    : "text-foreground/[0.04]"
+                }`}
+              >
+                {value.stat}
+              </span>
+
+              <div className="relative z-10">
+                {/* Icon */}
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center mb-6 ${
+                    value.featured
+                      ? "bg-white/15"
+                      : "bg-accent/10"
+                  }`}
+                >
+                  <value.icon
+                    size={20}
+                    className={value.featured ? "text-white" : "text-accent"}
+                  />
                 </div>
 
+                {/* Title */}
+                <h3
+                  className={`text-lg sm:text-xl font-bold tracking-tight mb-3 ${
+                    value.featured ? "text-white" : ""
+                  }`}
+                >
+                  {value.title}
+                </h3>
+
                 {/* Description */}
-                <p className="text-sm sm:text-[15px] text-muted leading-relaxed">
+                <p
+                  className={`text-sm leading-relaxed max-w-md ${
+                    value.featured ? "text-white/70" : "text-muted"
+                  }`}
+                >
                   {value.description}
                 </p>
               </div>
 
               {/* Stat */}
-              <div className="mt-6 pt-5 border-t border-border flex items-baseline gap-2">
-                <span className="text-2xl sm:text-3xl font-bold text-accent tracking-tight">
+              <div className="relative z-10 mt-6 flex items-baseline gap-2">
+                <span
+                  className={`text-3xl sm:text-4xl font-bold tracking-tight ${
+                    value.featured ? "text-white" : "text-accent"
+                  }`}
+                >
                   {value.stat}
                 </span>
-                <span className="text-xs sm:text-sm text-muted">
+                <span
+                  className={`text-xs sm:text-sm ${
+                    value.featured ? "text-white/50" : "text-muted"
+                  }`}
+                >
                   {value.statLabel}
                 </span>
               </div>
